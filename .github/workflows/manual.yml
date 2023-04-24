@@ -31,7 +31,7 @@ jobs:
      # Compiles classes to test 
       - name: compile classes
         working-directory: ./src
-        run: javac -cp "../testresources/junit-platform-console-standalone-1.6.0.jar" ./ST10389095/ST10389095.java ./ST10389095/Message.java "../test/ST10389095/ST10389095Test.java"  "../test/ST1038905/MessageTest.java"
+        run: javac -cp "../testresources/junit-platform-console-standalone-1.6.0.jar" ./ST10389095/ST10389095.java ./ST10389095/Message.java ./ST10389095/Response.java "../test/ST10389095/ST10389095Test.java"  "../test/ST1038905/MessageTest.java""../test/ST1038905/ResponseTest.java"
 
     # list contents of src to verify that classess compiled 
       - name: List contents of src directory after compile
@@ -42,12 +42,12 @@ jobs:
        # copy compiled classes to test directory 
       - name : copy compiled classes to testresources directory 
         working-directory: ./src/ST10389095
-        run: cp -t  "../../test/ST10389095" Message.class ST10389095.class
+        run: cp -t  "../../test/ST10389095" Message.class ST10389095.class Response.class
         
         #copy compiled tests 
       - name : copy compiled Test classes to testresources directory 
         working-directory: ./test/ST10389095
-        run: cp -t  "../../testresources/" Message.class ST10389095.class
+        run: cp -t  "../../testresources/" Message.class ST10389095.class Response.class
         
         # list contents or directory
       - name: List contents test package
@@ -55,10 +55,17 @@ jobs:
         run: ls
         
         #run Message Class tests and output report 
-      - name: run Messages Class tests and create report 
+      - name: run Message Class tests and create report 
         working-directory: ./test
         run: |
          ls
          java -jar  "../testresources/junit-platform-console-standalone-1.6.0.jar" -cp "." --select-class  ST10389095.MessageTest  
+         
+          #run Response Class tests and output report 
+      - name: run Response Class tests and create report 
+        working-directory: ./test
+        run: |
+         ls
+         java -jar  "../testresources/junit-platform-console-standalone-1.6.0.jar" -cp "." --select-class  ST10389095.ResponseTest  
          
    
